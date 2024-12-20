@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Form Pendaftaran</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+        .form-group {
+            margin-bottom: 15px;
+        }
+        input {
+            width: 100%;
+            padding: 10px;
+            margin-top: 5px;
+        }
+        .error {
+            color: red;
+            font-size: 0.8em;
+            display: none;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <form id="registrationForm">
+        <div class="form-group">
+            <label for="nama">Nama Lengkap:</label>
+            <input type="text" id="nama" name="nama" required>
+            <div id="namaError" class="error">Nama harus diisi minimal 3 karakter</div>
+        </div>
+
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <div id="emailError" class="error">Masukkan email yang valid</div>
+        </div>
+        <div class="form-group">
+            <label for="telepon">Nomor Telepon:</label>
+            <input type="tel" id="telepon" name="telepon" required>
+            <div id="teleponError" class="error">Nomor telepon harus 10-12 digit</div>
+        </div>
+        
+        <label for="jam">Jam Keberangkatan:</label>
+        <input type="text" id="jam" placeholder="HH.MM" required>
+        <span class="error" id="jamError">Jam harus diisi dalam format HH.MM (00.00 - 23.59).</span><br><br>
+
+        <label for="tujuan">Tujuan Keberangkatan:</label>
+        <input type="text" id="tujuan" required>
+        <span class="error" id="tujuanError">Tujuan harus diisi.</span><br><br>
+
+
+        <div class="form-group">
+            <label for="telepon">Nomor Telepon:</label>
+            <input type="tel" id="telepon" name="telepon" required>
+            <div id="teleponError" class="error">Nomor telepon harus 10-12 digit</div>
+        </div>
+
+        <label for="jumlah">Jumlah Tiket:</label>
+        <input type="number" id="jumlah" min="1" max="10" required>
+        <span class="error" id="jumlahError">Jumlah tiket harus antara 1 dan 10.</span><br><br>
+
+        <button type="submit">Pesan Tiket</button>
+    </form>
+
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(e) {
+            let isValid = true;
+
+            // Validasi Nama
+            const nama = document.getElementById('nama');
+            const namaError = document.getElementById('namaError');
+            if (nama.value.length < 3) {
+                namaError.style.display = 'block';
+                isValid = false;
+            } else {
+                namaError.style.display = 'none';
+            }
+
+            // Validasi Email
+            const email = document.getElementById('email');
+            const emailError = document.getElementById('emailError');
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(email.value)) {
+                emailError.style.display = 'block';
+                isValid = false;
+            } else {
+                emailError.style.display = 'none';
+            }
+
+            // Validasi Telepon
+            const telepon = document.getElementById('telepon');
+            const teleponError = document.getElementById('teleponError');
+            const teleponRegex = /^\d{10,12}$/;
+            if (!teleponRegex.test(telepon.value)) {
+                teleponError.style.display = 'block';
+                isValid = false;
+            } else {
+                teleponError.style.display = 'none';
+            }
+            if (!isValid) {
+                e.preventDefault(); // Mencegah pengiriman form jika validasi gagal
+            }
+        });
+    </script>
+</body>
+</html>
